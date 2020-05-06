@@ -113,7 +113,50 @@ contract FlightSuretyApp {
     function addAirline(address newAirline, string calldata name) external requireIsOperational {
         flightSuretyData.addAirline(newAirline, name);
     }
+  
+   /**
+    * @dev Add an airline to the registration queue
+    *
+    */   
+    function registerAirline
+                            (                                 
+                                    address newLine,
+                                    string calldata newLineID                            
+                            )
+                            external
+                            requireIsOperational
+                            // returns(bool success, uint256 votes)
+    {
+        flightSuretyData.registerAirline(newLine, newLineID);
+        // return (success, 0);
+    }
 
+
+   /**
+    * @dev Register a future flight for insuring.
+    *
+    */  
+    // function registerFlight
+    //                             (
+    //                             )
+    //                             external
+    //                             pure
+    // {
+
+    // }
+
+    /**
+     * @dev Add funds to Data contract. If sender is an existance airline add the value to
+     *      airline fund control variable.
+     */
+    function fund() external payable requireIsOperational {
+        bool airlineisRegistered = flightSuretyData.isAirlineRegistered(msg.sender);
+        if (airlineisRegistered) {
+            flightSuretyData.addFundsToAirline(msg.sender, msg.value);
+        }
+        address(flightSuretyData).transfer(msg.value);
+    }
+    
     /**
      * @dev Allowed airline votes to new one airline
      */
@@ -165,49 +208,6 @@ contract FlightSuretyApp {
         uint256 result = flightSuretyData.gethasFundAirlineCount();
         return(result);
     }
-
-    /**
-     * @dev Add funds to Data contract. If sender is an existance airline add the value to
-     *      airline fund control variable.
-     */
-    function fund() external payable requireIsOperational {
-        bool airlineisRegistered = flightSuretyData.isAirlineRegistered(msg.sender);
-        if (airlineisRegistered) {
-            flightSuretyData.addFundsToAirline(msg.sender, msg.value);
-        }
-        address(flightSuretyData).transfer(msg.value);
-    }
-  
-   /**
-    * @dev Add an airline to the registration queue
-    *
-    */   
-    function registerAirline
-                            (                                 
-                                    address newLine,
-                                    string calldata newLineID                            
-                            )
-                            external
-                            requireIsOperational
-                            // returns(bool success, uint256 votes)
-    {
-        flightSuretyData.registerAirline(newLine, newLineID);
-        // return (success, 0);
-    }
-
-
-   /**
-    * @dev Register a future flight for insuring.
-    *
-    */  
-    // function registerFlight
-    //                             (
-    //                             )
-    //                             external
-    //                             pure
-    // {
-
-    // }
     
    /**
     * @dev Called after oracle has updated flight status

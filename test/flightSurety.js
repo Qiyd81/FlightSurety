@@ -1,26 +1,26 @@
 
-// var Test = require('../config/testConfig.js');
-// var BigNumber = require('bignumber.js');
+var Test = require('../config/testConfig.js');
+var BigNumber = require('bignumber.js');
 
-// contract('Flight Surety Tests', async (accounts) => {
+contract('Flight Surety Tests', async (accounts) => {
 
-//   var config;
-//   before('setup contract', async () => {
-//     config = await Test.Config(accounts);
-//     await config.flightSuretyData.authorizeAppContract(config.flightSuretyApp.address);
-//   });
+  var config;
+  before('setup contract', async () => {
+    config = await Test.Config(accounts);
+    await config.flightSuretyData.authorizeAppContract(config.flightSuretyApp.address);
+  });
 
-//   /****************************************************************************************/
-//   /* Operations and Settings                                                              */
-//   /****************************************************************************************/
+  /****************************************************************************************/
+  /* Operations and Settings                                                              */
+  /****************************************************************************************/
 
-//   it(`(multiparty) has correct initial isOperational() value`, async function () {
+  it(`(multiparty) has correct initial isOperational() value`, async function () {
 
-//     // Get operating status
-//     let status = await config.flightSuretyData.isOperational.call();
-//     assert.equal(status, true, "Incorrect initial operating status value");
+    // Get operating status
+    let status = await config.flightSuretyData.isOperational.call();
+    assert.equal(status, true, "Incorrect initial operating status value");
 
-//   });
+  });
 
 //   it(`(multiparty) can block access to setOperatingStatus() for non-Contract Owner account`, async function () {
 
@@ -91,40 +91,41 @@
 //   });
  
 
-// });
+});
 
-const Test = require('../config/testConfig.js');
-const BigNumber = require('bignumber.js');
-const truffleAssert = require('truffle-assertions');
 
-contract('Flight Surety Tests', async (accounts) => {
+// const Test = require('../config/testConfig.js');
+// const BigNumber = require('bignumber.js');
+// const truffleAssert = require('truffle-assertions');
 
-  const airlineInitialFund = web3.utils.toWei("10", "ether");
-  const oneEther = web3.utils.toWei("1", "ether");
-  const timestamp = Math.floor(Date.now() / 1000);
-  const lateFlight = "FLY-1"
+// contract('Flight Surety Tests', async (accounts) => {
 
-  var config;
-  before('setup contract', async () => {
-    config = await Test.Config(accounts);
-    await config.flightSuretyData.authorizeAppContract(config.flightSuretyApp.address);
-  });
+//   const airlineInitialFund = web3.utils.toWei("10", "ether");
+//   const oneEther = web3.utils.toWei("1", "ether");
+//   const timestamp = Math.floor(Date.now() / 1000);
+//   const lateFlight = "FLY-1"
+
+//   var config;
+//   before('setup contract', async () => {
+//     config = await Test.Config(accounts);
+//     await config.flightSuretyData.authorizeAppContract(config.flightSuretyApp.address);
+//   });
 
   /****************************************************************************************/
   /* Operations and Settings                                                              */
   /****************************************************************************************/
 
-  it(`(constructor) checks first airline creation in contract deploy`, async function () {
+//   it(`(constructor) checks first airline creation in contract deploy`, async function () {
 
-    // Get operating status
-    const airline = await config.flightSuretyApp.getAirline.call(config.firstAirline, { from: config.flightSuretyApp.address });
+//     // Get operating status
+//     const airline = await config.flightSuretyApp.getAirline.call(config.firstAirline, { from: config.flightSuretyApp.address });
     
-    // Checks airline atributes
-    assert.equal(airline[0], 'Number One', 'Incorret name of first airline');
-    assert.equal(airline[1], true, 'First airline not registered');
-    assert.equal(airline[2], 0, "First airline should't have investements");
-    assert.equal(airline[3], 0, "First airline should't have votes");
-  });
+//     // Checks airline atributes
+//     assert.equal(airline[0], 'Number One', 'Incorret name of first airline');
+//     assert.equal(airline[1], true, 'First airline not registered');
+//     assert.equal(airline[2], 0, "First airline should't have investements");
+//     assert.equal(airline[3], 0, "First airline should't have votes");
+//   });
 
 //   it(`(multiparty) has correct initial isOperational() value`, async function () {
 
@@ -423,4 +424,4 @@ contract('Flight Surety Tests', async (accounts) => {
 //     assert.ok(beforeBalance < afterBalance, "Balance incorrect!");
 //   });
 
-});
+// });
